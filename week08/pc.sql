@@ -45,14 +45,14 @@ SELECT maker, price
 FROM product 
 join pc on product.model = pc.model 
 WHERE pc.price = (SELECT max(price)
-									FROM pc)
+		  FROM pc)
 
 SELECT avg(ram)
 FROM pc
 WHERE model in (SELECT  model
-								FROM product
-								WHERE maker in (SELECT maker 
-																FROM product
-																WHERE model in (SELECT model
-																								FROM printer)))
+		FROM product
+		WHERE maker in (SELECT maker 
+				FROM product
+				WHERE model in (SELECT model
+						FROM printer)))
 
