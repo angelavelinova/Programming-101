@@ -189,7 +189,7 @@ class Playlist:
 			json.dump(d,f)
 		return filename
 
-	@staticmethod
+	@classmethod
 	def load(file_name):
 		with open(file_name, 'r') as f:
 			content = json.load(f)
@@ -211,18 +211,9 @@ class MusicCrawler:
 
 	def get_info(self, data):
 		song_data = {}
-		try:
-			song_data["artist"] = data["ARTIST"].text[0]
-		except:
-			song_data["artist"] = "Unknown"
-		try:
-			song_data["album"] = data["ALBUM"].text[0]
-		except:
-			song_data["album"] = "Unknown"
-		try:
-			song_data["title"] = data["TITLE"].text[0]
-		except:
-			song_data["title"] = "Unknown"
+		song_data["artist"] = data.get(["ARTIST"].text[0], "Unknown")
+		song_data["album"] = data.get(["ALBUM"].text[0], "Unknown")
+		song_data["title"] = data.get(["TITLE"].text[0], "Unknown")
 		try:
 			song_data["length"] = str(
 				datetime.timedelta(seconds=data.info.length//1))[2:]
